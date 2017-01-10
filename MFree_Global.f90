@@ -13,6 +13,7 @@ include 'variables.h'
 
     open(ninput,file='Input175_55.dat')
     open(noutput,file='result.dat',status='unknown')
+
     ! ************* Input data
     call input(x,numd,nx,numnode,ndivx,ndivy,ndivxq,ndivyq,&
         nconn2,nquado,pAlf,Dmat,ALFs,numcell,numq,noCell,ncn,xc,&
@@ -33,12 +34,17 @@ include 'variables.h'
             gs(ik,jk)=0
         enddo
     enddo
-    do ik=1,2*numd
-        force(ik)=0.
-        do jk=1,2*numd
-            ak(ik,jk)=0.
-        enddo
-    enddo
+
+
+    !    do ik=1,2*numd
+    !        force(ik)=0
+    !        do jk=1,2*numd
+    !            ak(ik,jk)=0
+    !        enddo
+    !    enddo
+
+    force=0.0
+    ak=0.0
 
     write(*,*) 'Success!'
 

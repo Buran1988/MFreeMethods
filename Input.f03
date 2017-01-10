@@ -12,6 +12,7 @@ SUBROUTINE Input(x,numd,nx,numnode,ndivx,ndivy,ndivxq,ndivyq,&
     CHARACTER*40 NAM
     dimension npEBC(3,100),pEBC(2,100),npNBC(3,100),pNBC(2,100)
     dimension x(nx,numd),Dmat(3,3),noCell(4,ncn),xc(nx,numd)
+
     read(4,10)nam
     read(4,*) xlength,ylength,young,anu,p
     read(4,10)nam
