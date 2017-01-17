@@ -125,10 +125,10 @@ include 'variables.h'
     ! ************* Get stress
     CALL GetStress(x,noCell,ds,Dmat,u2,alfs,nx,numnode,numgauss,&
         xc,gauss,nquado,ng,numq,numcell, ENORM,Stressnode)
-    STOP
+
 
 
     WRITE(*,*) 'Success!'
 
-
+    STOP
 END PROGRAM MFree_Global
