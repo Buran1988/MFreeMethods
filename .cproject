@@ -19,11 +19,22 @@
 					<folderInfo id="photran.managedbuild.config.gnu.fortran.win32.exe.debug.1029558326." name="/" resourcePath="">
 						<toolChain id="photran.managedbuild.toolchain.gnu.fortran.win32.exe.debug.1715541743" name="GCC Fortran" superClass="photran.managedbuild.toolchain.gnu.fortran.win32.exe.debug">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.PE" id="photran.managedbuild.target.gnu.platform.win32.exe.debug.1393816851" name="Debug Platform" osList="win32" superClass="photran.managedbuild.target.gnu.platform.win32.exe.debug"/>
-							<builder buildPath="${workspace_loc:/MFreeMethods}/Debug" id="photran.managedbuild.target.gnu.builder.win32.exe.debug.941031883" managedBuildOn="true" name="Gnu Make Builder.Debug" superClass="photran.managedbuild.target.gnu.builder.win32.exe.debug"/>
-							<tool id="photran.managedbuild.tool.gnu.c.compiler.win32.exe.debug.1180707526" name="GCC C Compiler" superClass="photran.managedbuild.tool.gnu.c.compiler.win32.exe.debug"/>
-							<tool id="photran.managedbuild.tool.gnu.fortran.compiler.win32.exe.debug.155257358" name="GNU Fortran Compiler" superClass="photran.managedbuild.tool.gnu.fortran.compiler.win32.exe.debug"/>
-							<tool id="photran.managedbuild.tool.gnu.fortran.linker.win32.exe.debug.1139570218" name="GNU Fortran Linker" superClass="photran.managedbuild.tool.gnu.fortran.linker.win32.exe.debug"/>
-							<tool id="photran.managedbuild.tool.gnu.assembler.win32.exe.debug.1436663570" name="GCC Assembler" superClass="photran.managedbuild.tool.gnu.assembler.win32.exe.debug"/>
+							<builder buildPath="${workspace_loc:/MFreeMethods}/Debug" id="photran.managedbuild.target.gnu.builder.win32.exe.debug.941031883" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="photran.managedbuild.target.gnu.builder.win32.exe.debug"/>
+							<tool id="photran.managedbuild.tool.gnu.c.compiler.win32.exe.debug.1180707526" name="GCC C Compiler" superClass="photran.managedbuild.tool.gnu.c.compiler.win32.exe.debug">
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1432548123" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="photran.managedbuild.tool.gnu.fortran.compiler.win32.exe.debug.155257358" name="GNU Fortran Compiler" superClass="photran.managedbuild.tool.gnu.fortran.compiler.win32.exe.debug">
+								<inputType id="photran.managedbuild.tool.gnu.fortran.compiler.input.1517032950" superClass="photran.managedbuild.tool.gnu.fortran.compiler.input"/>
+							</tool>
+							<tool id="photran.managedbuild.tool.gnu.fortran.linker.win32.exe.debug.1139570218" name="GNU Fortran Linker" superClass="photran.managedbuild.tool.gnu.fortran.linker.win32.exe.debug">
+								<inputType id="photran.managedbuild.tool.gnu.fortran.linker.input.1033914903" superClass="photran.managedbuild.tool.gnu.fortran.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="photran.managedbuild.tool.gnu.assembler.win32.exe.debug.1436663570" name="GCC Assembler" superClass="photran.managedbuild.tool.gnu.assembler.win32.exe.debug">
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1356482812" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
 						</toolChain>
 					</folderInfo>
 				</configuration>
@@ -48,22 +59,48 @@
 					<folderInfo id="photran.managedbuild.config.gnu.fortran.win32.exe.release.1771976422." name="/" resourcePath="">
 						<toolChain id="photran.managedbuild.toolchain.gnu.fortran.win32.exe.release.1342159120" name="GCC Fortran" superClass="photran.managedbuild.toolchain.gnu.fortran.win32.exe.release">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.PE" id="photran.managedbuild.target.gnu.platform.fortran.win32.exe.release.1480724231" name="Release Platform" osList="win32" superClass="photran.managedbuild.target.gnu.platform.fortran.win32.exe.release"/>
-							<builder buildPath="${workspace_loc:/MFreeMethods}/Release" id="photran.managedbuild.target.gnu.builder.win32.exe.release.559251720" managedBuildOn="true" name="Gnu Make Builder.Release" superClass="photran.managedbuild.target.gnu.builder.win32.exe.release"/>
-							<tool id="photran.managedbuild.tool.gnu.c.compiler.win32.exe.release.1548592246" name="GCC C Compiler" superClass="photran.managedbuild.tool.gnu.c.compiler.win32.exe.release"/>
-							<tool id="photran.managedbuild.tool.gnu.fortran.compiler.win32.exe.release.678980536" name="GNU Fortran Compiler" superClass="photran.managedbuild.tool.gnu.fortran.compiler.win32.exe.release"/>
-							<tool id="photran.managedbuild.tool.gnu.fortran.linker.win32.exe.release.2146078550" name="GNU Fortran Linker" superClass="photran.managedbuild.tool.gnu.fortran.linker.win32.exe.release"/>
-							<tool id="photran.managedbuild.tool.gnu.assembler.win32.exe.release.1558854157" name="GCC Assembler" superClass="photran.managedbuild.tool.gnu.assembler.win32.exe.release"/>
+							<builder buildPath="${workspace_loc:/MFreeMethods}/Release" id="photran.managedbuild.target.gnu.builder.win32.exe.release.559251720" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="photran.managedbuild.target.gnu.builder.win32.exe.release"/>
+							<tool id="photran.managedbuild.tool.gnu.c.compiler.win32.exe.release.1548592246" name="GCC C Compiler" superClass="photran.managedbuild.tool.gnu.c.compiler.win32.exe.release">
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.232283664" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="photran.managedbuild.tool.gnu.fortran.compiler.win32.exe.release.678980536" name="GNU Fortran Compiler" superClass="photran.managedbuild.tool.gnu.fortran.compiler.win32.exe.release">
+								<inputType id="photran.managedbuild.tool.gnu.fortran.compiler.input.1799695432" superClass="photran.managedbuild.tool.gnu.fortran.compiler.input"/>
+							</tool>
+							<tool id="photran.managedbuild.tool.gnu.fortran.linker.win32.exe.release.2146078550" name="GNU Fortran Linker" superClass="photran.managedbuild.tool.gnu.fortran.linker.win32.exe.release">
+								<inputType id="photran.managedbuild.tool.gnu.fortran.linker.input.1834412251" superClass="photran.managedbuild.tool.gnu.fortran.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="photran.managedbuild.tool.gnu.assembler.win32.exe.release.1558854157" name="GCC Assembler" superClass="photran.managedbuild.tool.gnu.assembler.win32.exe.release">
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1074142450" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
 						</toolChain>
 					</folderInfo>
 				</configuration>
 			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="MFreeMethods.photran.managedbuild.target.gnu.fortran.win32.exe.291208907" name="Executable (Gnu Fortran on Windows)" projectType="photran.managedbuild.target.gnu.fortran.win32.exe"/>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/MFreeMethods"/>
+		</configuration>
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/MFreeMethods"/>
+		</configuration>
+	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="photran.managedbuild.config.gnu.fortran.win32.exe.debug.1029558326;photran.managedbuild.config.gnu.fortran.win32.exe.debug.1029558326.">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="photran.managedbuild.config.gnu.fortran.win32.exe.debug.1029558326;photran.managedbuild.config.gnu.fortran.win32.exe.debug.1029558326.;photran.managedbuild.tool.gnu.c.compiler.win32.exe.debug.1180707526;cdt.managedbuild.tool.gnu.c.compiler.input.1432548123">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 </cproject>
