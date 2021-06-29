@@ -8,12 +8,18 @@ PROGRAM MFree_Global
     ! include file -- parameters.h, variables.h
     !----------------------------------------------------------------------------
     IMPLICIT REAL*8 (A-H,O-Z)
+    CHARACTER input_file*140
 include 'parameters.h'
 
 
 include 'variables.h'
 
-    OPEN(ninput,FILE='Input175_55.dat')
+    ! ¬вожу переменную дл€ передачи имени файла из параметров запуска
+    !    OPEN(ninput,FILE='Input175_55.dat')
+    call get_command_argument(1, input_file)
+    write(*,*) 'Input file aquired: ', input_file
+    OPEN(ninput,FILE=input_file)
+
     OPEN(noutput,FILE='result.dat',STATUS='unknown')
 
     ! ************* Input data
