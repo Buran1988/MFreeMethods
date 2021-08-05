@@ -15,12 +15,13 @@ SUBROUTINE GaussSolver(n,mk,a,b,ep,kwji)
     DO 20 k=1,n
         p=0.0
         DO 30 i=k,n
-            DO 30 j=k,n
+            DO 30  j=k,n
                 IF(abs(a(i,j)).LE.abs(p)) GOTO 30
                 p=a(i,j)
                 io=i
                 jo=j
-30          CONTINUE
+30      continue
+
             IF(abs(p)-ep) 200,200,300
 200         kwji=1
             RETURN

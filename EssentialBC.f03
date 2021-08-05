@@ -1,4 +1,4 @@
-SUBROUTINE EssentialBC(numnode,pAlf,alfs,x,ds,ak,af,npEBCnum,npEBC,pEBC)
+SUBROUTINE EssentialBC(numnode,pAlf,x,ds,ak,af,npEBCnum,npEBC,pEBC)
     !----------------------------------------------------------------------------
     ! This subroutine to enforce point essential bc's using penalty method;
     ! input--numnode: total number of field nodes;
@@ -15,7 +15,7 @@ include 'parameters.h'
     DIMENSION npEBC(3,100),pEBC(2,100)
     DIMENSION x(nx,numnode),ds(2,numnode),ak(2*numd,2*(numnode)),af(2*numnode)
     DIMENSION nv(numnode),ph(10,numnode), x2(2)
-    maxak=0.
+    real:: maxak=0.
     DO iebc=1,2*numnode
         IF(abs(ak(iebc,iebc)).GT.maxak) maxak=abs(ak(iebc,iebc))
     ENDDO

@@ -32,8 +32,8 @@ include 'parameters.h'
         xe(j)=xc(1,je)
         ye(j)=xc(2,je)
     enddo
-    do 10 i=1,l
-        do 10 j=1,l
+    do i=1,l
+        do j=1,l
             index=index+1
             eta=gauss(1,i)
             psi=gauss(1,j)
@@ -63,6 +63,8 @@ include 'parameters.h'
             gs(2,index)=yq
             gs(3,index)=gauss(2,i)*gauss(2,j)
             gs(4,index)=ajcob
-10      continue
+            enddo
+            enddo
+!10      continue
         RETURN
     END

@@ -24,6 +24,9 @@ include 'parameters.h'
         ajac=0.5*sqrt((xc(1,in)-xc(1,jn))**2+(xc(2,in)-xc(2,jn))**2)
         aimo=(1./12.)*ylength**3
         ty=(-1000./(2.*aimo))*(ylength*ylength/4.-gpos(2)*gpos(2))
+        ! Added for tx
+        tx=(1000./(2.*aimo))*(xlength*xlength/4.-gpos(1)*gpos(1))
+
         CALL SupportDomain(numnode,nx,gpos,x,ds,ndex,nv)
 
         ph=0.
@@ -32,7 +35,9 @@ include 'parameters.h'
             alfc,dc,q,nRBF, mbasis)
         DO ie=1,ndex
             nn=nv(ie)
-            force(2*nn)=force(2*nn)+weight*ajac*ph(1,ie)*ty
+            force(2*nn-1)=force(2*nn-1)+weight*ajac*ph(1,ie)*tx
+!            force(2*nn)=force(2*nn)+weight*ajac*ph(1,ie)*ty
+!            af(ie*2-1)=af(ie*2-1)+ph(1,iee)*uu
         ENDDO
     ENDDO
 END

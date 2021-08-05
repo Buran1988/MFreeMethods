@@ -1,4 +1,4 @@
-SUBROUTINE GetDisplacement(x,ds,u2,disp,alfs,nx,numnode)
+SUBROUTINE GetDisplacement(x,ds,u2,disp,nx,numnode)
     !----------------------------------------------------------------------------
     ! This subroutine to get the final displacements from
     ! displacement parameters using the MFree interpolation;

@@ -7,18 +7,20 @@ Subroutine GaussEqSolver_Sym(n,ma,a,b,ep,kwji)
     !------------------------------------------------------------------
     implicit real*8 (a-h,o-z)
     dimension a(ma,n),b(n),m(n+1)
-    do 10 i=1,n
-10      m(i)=i
+    do i=1,n
+        m(i)=i
+    enddo
         do 120 k=1,n
             p=0.0
-            do 20 i=k,n
-                do 20 j=k,n
+            do i=k,n
+                do j=k,n
                     if(dabs(a(i,j)).gt.dabs(p)) then
                         p=a(i,j)
                         io=i
                         jo=j
                     endif
-20              continue
+                enddo
+            enddo
                 if(dabs(p)-ep) 30,30,35
 30              kwji=1
                 return
@@ -44,19 +46,24 @@ Subroutine GaussEqSolver_Sym(n,ma,a,b,ep,kwji)
 55          p=1./p
             in=n-1
             if(k.eq.n) go to 65
-            do 60 j=k,in
-60              a(k,j+1)=a(k,j+1)*p
+            do j=k,in
+              a(k,j+1)=a(k,j+1)*p
+            enddo
 65              b(k)=b(k)*p
                 if(k.eq.n) go to 120
-                do 80 i=k,in
-                    do 70 j=k,in
-70                      a(i+1,j+1)=a(i+1,j+1)-a(i+1,k)*a(k,j+1)
-80                      b(i+1)=b(i+1)-a(i+1,k)*b(k)
+                do i=k,in
+                    do j=k,in
+                      a(i+1,j+1)=a(i+1,j+1)-a(i+1,k)*a(k,j+1)
+                    enddo
+                      b(i+1)=b(i+1)-a(i+1,k)*b(k)
+                enddo
 120                 continue
-                    do 130 i1=2,n
+                    do i1=2,n
                         i=n+1-i1
-                        do 130 j=i,in
-130                         b(i)=b(i)-a(i,j+1)*b(j+1)
+                        do j=i,in
+                         b(i)=b(i)-a(i,j+1)*b(j+1)
+                        enddo
+                    enddo
                             do 140 k=1,n
                                 i=m(k)
 140                             a(1,i)=b(k)

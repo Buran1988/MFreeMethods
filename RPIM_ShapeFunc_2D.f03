@@ -37,7 +37,7 @@ SUBROUTINE RPIM_ShapeFunc_2D(gpos,x,nv,phi,nx,numnode,ndex,&
         nn=nv(i)
         CALL Compute_RadialBasis(x(1,nn),x(2,nn),xv,rr,ndex,rc,q,nRBF,mbasis)
 
-            g0(i,:)=rr(1,:)
+        g0(i,:)=rr(1,:)
 
         IF(mbasis.GT.0) THEN
             g0(i,ndex+1)=1.
@@ -58,7 +58,8 @@ SUBROUTINE RPIM_ShapeFunc_2D(gpos,x,nv,phi,nx,numnode,ndex,&
     CALL GaussEqSolver_Sym(mg,mg,a,rk,ep,kwji)
     IF(kwji==1) THEN
         WRITE(*,*)'Fail...'
-       ! PAUSE
+    !        stop
+      !PAUSE
     ENDIF
 
     phi(1,:)=rk

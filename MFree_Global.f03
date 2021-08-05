@@ -1,5 +1,5 @@
 PROGRAM MFree_Global
-
+    use functionvalues
     !----------------------------------------------------------------------------
     ! main program--2D FORTRAN 90 CODE-MFree global weak-form methods
     ! Using square support domain and square background cells
@@ -8,6 +8,11 @@ PROGRAM MFree_Global
     ! include file -- parameters.h, variables.h
     !----------------------------------------------------------------------------
     IMPLICIT REAL*8 (A-H,O-Z)
+
+    integer, parameter::iwp=selected_real_kind(15)
+    integer :: cell_id
+    REAL(iwp),ALLOCATABLE::gauss(:,:)
+
     CHARACTER input_file*140
 include 'parameters.h'
 
@@ -22,22 +27,27 @@ include 'variables.h'
 
     OPEN(noutput,FILE='result.dat',STATUS='unknown')
 
+    OPEN(ndebug_info,FILE='debug_info.dat',STATUS='unknown')
+    write(ndebug_info,50)
+
     ! ************* Input data
     CALL input(x,numd,nx,numnode,ndivx,ndivy,ndivxq,ndivyq,&
         nconn2,nquado,pAlf,Dmat,ALFs,numcell,numq,noCell,ncn,xc,&
         npEBCnum,npEBC,pEBC,npNBCnum,npNBC,pNBC)
 
-    numgauss=nquado*nquado !total number of Gauss points in a cell
+    numgauss=3 !nquado*nquado !total number of Gauss points in a cell
     ! ************* Determine sizes of influence domains -- uniform nodal spacing
-    xspace=xlength/ndivx
-    yspace=ylength/ndivy
-    DO i=1,numnode
-        ds(1,i)=alfs*xspace
-        ds(2,i)=alfs*yspace
-    ENDDO
-    ! ************* Coefficients of Gauss points,Weights and Jacobian for a cell
-    CALL GaussCoefficient(nquado,gauss)
 
+    xspace= 1./8. !xlength/ndivx
+    yspace= 1./9. ! ylength/ndivy
+    DO i=1,numnode
+        ds(1,i)=.21 !alfs*xspace
+        ds(2,i)=.21 !alfs*yspace
+    ENDDO
+        ! ************* Coefficients of Gauss points,Weights and Jacobian for a cell
+
+    ALLOCATE ( gauss(3,3) )
+    CALL GaussTriaCoefficient(nquado,gauss)
 
     gs=0.0
     force=0.0
@@ -46,9 +56,12 @@ include 'variables.h'
     ! ************* Loop for background cells
     DO 10 ibk=1,numcell
         WRITE(*,*)'Cell No.=',ibk
-        ! ************* Set Gauss points for this cell
-        CALL CellGaussPoints(ibk,numcell,nquado,numq,numgauss, &
-            xc,noCell,gauss,gs)
+                ! ************* Set Gauss points for this cell
+        !        CALL CellGaussPointsTria(ibk,numcell,nquado,numq,numgauss, &
+        !            xc,noCell,gauss,gs)
+        cell_id = ibk
+
+        gs = GetGaussPointsData(cell_id, gauss, xc, noCell )
         ! ************* Loop over Gauss points to assemble discrete equations
         DO 20 ie=1,numgauss
             gpos(1)=gs(1,ie) ! Gauss point x
@@ -58,14 +71,32 @@ include 'variables.h'
             ! ************* Determine the support domain of Gauss point
             ndex=0
             CALL SupportDomain(numnode,nx,gpos,x,ds,ndex,nv)
-            DO ik=1,3*ndex
-                DO jk=1,10
-                    ph(jk,ik)=0.
-                ENDDO
-            ENDDO
+            !            DO ik=1,3*ndex
+            !                DO jk=1,10
+            !                    ph(jk,ik)=0.
+            !                ENDDO
+            !            ENDDO
+            ph=0.
             ! ************* Construct RPIM shape functions for a Gauss point
             CALL RPIM_ShapeFunc_2D(gpos,x,nv,ph,nx,numnode,ndex,&
                 alfc,dc,q,nRBF, mbasis)
+
+            !            lines_count = ubound(ph, 2)
+            !
+            !            do l = 1, ndex
+            !                write(*,*) gs(:,l)
+            !            enddo
+            do kk=1,ndex
+                nd=nv(kk)
+                write(ndebug_info,100)nv(kk),x(1,nd),x(2,nd),ph(1,kk), &
+                    ph(2,kk),ph(3,kk),ph(4,kk),ph(6,kk),gpos(1),gpos(2)
+            enddo
+
+
+50          format(1x,'Node', 5x,'x', 7x,'y', 8x,'Phi', 6x,'dPhidx', &
+                5x,'dPhidy', 4x, 'dPhidxx', 4x,'dPhidyy',5x,'GposX',5x,'GposY',    /,80('-'))
+100         format(1x,i4, 2f8.3, 7f11.5)
+
             DO ik=1,2*ndex
                 ne(ik)=0
             ENDDO
@@ -94,11 +125,13 @@ include 'variables.h'
         ! ************* Implement natural BC
         in=0
         jn=0
-        nn=noCell(3,ibk)
+        nn=noCell(1,ibk)
         IF(xc(1,nn)==xlength) in=nn
 
-        nn= noCell(4,ibk)
+        ! Прикладываем силу
+        nn= noCell(3,ibk)
         IF(xc(1,nn).EQ.xlength) jn=nn
+
         IF((in.NE.0).AND.(jn.NE.0)) THEN
             CALL naturalBC_distributed(numnode,numq,in,jn, &
                 alfs,x,xc,ds,gauss,nquado,force)
@@ -107,9 +140,9 @@ include 'variables.h'
     ! ************* Boundary conditions: essential BC
     WRITE(*,*)' Boundary conditions....'
     nak=2*numd
-    CALL EssentialBC(numnode,pAlf,alfs,x,ds,ak,force,npEBCnum,npEBC,pEBC)
+    CALL EssentialBC(numnode,pAlf,x,ds,ak,force,npEBCnum,npEBC,pEBC)
     ! ************* Boundary conditions: concentrated natural BC
-    CALL NaturalBC_concentrated(x,nx,numnode,force,ds,alfs,npNBCnum,npNBC,pNBC)
+!    CALL NaturalBC_concentrated(x,nx,numnode,force,ds,alfs,npNBCnum,npNBC,pNBC)
     nak=2*numd
     b=1.d-10
     ! ************* Solve equation to get the solutions
@@ -127,10 +160,10 @@ include 'variables.h'
         u2(2,ik)=force(jk+1)
     ENDDO
     ! ************* Get the final displacement
-    CALL GetDisplacement(x,ds,u2,disp,alfs,nx,numnode)
+    CALL GetDisplacement(x,ds,u2,disp,nx,numnode)
     ! ************* Get stress
     CALL GetStress(x,noCell,ds,Dmat,u2,alfs,nx,numnode,numgauss,&
-        xc,gauss,nquado,ng,numq,numcell, ENORM,Stressnode)
+        xc,gauss,nquado,ng,numcell, ENORM,Stressnode)
 
 
 

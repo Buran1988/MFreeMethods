@@ -20,6 +20,7 @@ SUBROUTINE SupportDomain(numnode,nx,gpos,x,ds,ndex,nv)
     DO ik=1,numnode
         dx=ds(1,ik)-dabs(gpos(1)-x(1,ik))
         dy=ds(2,ik)-dabs(gpos(2)-x(2,ik))
+
         IF((dx.GE.eps).AND.(dy.GE.eps)) THEN
             ndex=ndex+1
             nv(ndex)=ik

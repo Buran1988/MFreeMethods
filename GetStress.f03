@@ -1,5 +1,6 @@
 SUBROUTINE GetStress(x,noCell,ds,Dmat,u2,alfs,nx,numnode,numgauss,&
-    xc,gauss,nquado,ng,numq,numcell, ENORM,Stressnode)
+    xc,gauss,nquado,ng,numcell, ENORM,Stressnode)
+    use functionvalues
     !----------------------------------------------------------------------------
     ! This subroutine to get the stress and energy error;
     ! input--numnode: total number of field nodes;
@@ -60,8 +61,11 @@ SUBROUTINE GetStress(x,noCell,ds,Dmat,u2,alfs,nx,numnode,numgauss,&
     !****************Compute energy error
     do 100 ibk=1,numcell
         ind=0
-        call CellGaussPoints(ibk,numcell,nquado,numq,numgauss,&
-            xc,noCell,gauss,gs)
+!        call CellGaussPointsTria(ibk,numcell,nquado,numq,numgauss,&
+!            xc,noCell,gauss,gs)
+
+        gs = GetGaussPointsData(ibk, gauss, xc, noCell )
+
         do 200 is=1,numgauss
             do i=1,3
                 stress(i)=0.
