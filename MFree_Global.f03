@@ -19,7 +19,7 @@ include 'parameters.h'
 
 include 'variables.h'
 
-    ! Ввожу переменную для передачи имени файла из параметров запуска
+    ! Р’РІРѕР¶Сѓ РїРµСЂРµРјРµРЅРЅСѓСЋ РґР»СЏ РїРµСЂРµРґР°С‡Рё РёРјРµРЅРё С„Р°Р№Р»Р° РёР· РїР°СЂР°РјРµС‚СЂРѕРІ Р·Р°РїСѓСЃРєР°
     !    OPEN(ninput,FILE='Input175_55.dat')
     call get_command_argument(1, input_file)
     write(*,*) 'Input file aquired: ', input_file
@@ -41,8 +41,8 @@ include 'variables.h'
     xspace= 1./8. !xlength/ndivx
     yspace= 1./9. ! ylength/ndivy
     DO i=1,numnode
-        ds(1,i)=.21 !alfs*xspace
-        ds(2,i)=.21 !alfs*yspace
+        ds(1,i)=50. !alfs*xspace
+        ds(2,i)=50. !alfs*yspace
     ENDDO
         ! ************* Coefficients of Gauss points,Weights and Jacobian for a cell
 
@@ -58,7 +58,7 @@ include 'variables.h'
         WRITE(*,*)'Cell No.=',ibk
                 ! ************* Set Gauss points for this cell
         !        CALL CellGaussPointsTria(ibk,numcell,nquado,numq,numgauss, &
-        !            xc,noCell,gauss,gs)
+        !           xc,noCell,gauss,gs)
         cell_id = ibk
 
         gs = GetGaussPointsData(cell_id, gauss, xc, noCell )
@@ -128,7 +128,7 @@ include 'variables.h'
         nn=noCell(1,ibk)
         IF(xc(1,nn)==xlength) in=nn
 
-        ! Прикладываем силу
+        ! РџСЂРёРєР»Р°РґС‹РІР°РµРј СЃРёР»Сѓ
         nn= noCell(3,ibk)
         IF(xc(1,nn).EQ.xlength) jn=nn
 
@@ -142,7 +142,7 @@ include 'variables.h'
     nak=2*numd
     CALL EssentialBC(numnode,pAlf,x,ds,ak,force,npEBCnum,npEBC,pEBC)
     ! ************* Boundary conditions: concentrated natural BC
-!    CALL NaturalBC_concentrated(x,nx,numnode,force,ds,alfs,npNBCnum,npNBC,pNBC)
+    CALL NaturalBC_concentrated(x,nx,numnode,force,ds,alfs,npNBCnum,npNBC,pNBC)
     nak=2*numd
     b=1.d-10
     ! ************* Solve equation to get the solutions

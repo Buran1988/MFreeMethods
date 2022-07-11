@@ -3,7 +3,7 @@ SUBROUTINE Input(x,numd,nx,numnode,ndivx,ndivy,ndivxq,ndivyq,&
     npEBCnum,npEBC,pEBC,npNBCnum,npNBC,pNBC)
     !------------------------------------------------------------------
     ! Input data from outside
-    ! Output—all variables are output
+    ! Outputï¿½all variables are output
     !------------------------------------------------------------------
     implicit real*8 (a-h,o-z)
     common/para/xlength,ylength,p,young,anu,aimo
@@ -57,17 +57,32 @@ SUBROUTINE Input(x,numd,nx,numnode,ndivx,ndivy,ndivxq,ndivyq,&
     read(4,10)nam
     READ(4,*)mbasis
     ! ************* Compute material matrix D[] for the plane stress
-    you=young/(1.-anu*anu)
-    aimo=(1./12.)*ylength**3
-    Dmat(1,1)=you
-    Dmat(1,2)=anu*you
+!    you=young/(1.-anu*anu)
+!    aimo=(1./12.)*ylength**3
+!    Dmat(1,1)=you
+!    Dmat(1,2)=anu*you
+!    Dmat(1,3)=0.
+!    Dmat(2,1)=anu*you
+!    Dmat(2,2)=you
+!    Dmat(2,3)=0.
+!    Dmat(3,1)=0.
+!    Dmat(3,2)=0.
+!    Dmat(3,3)=0.5*(1.-anu)*you
+!------------------------------------------------
+! Introducing composite material ROB
+!([[2.29650146e+04, 6.08142164e+03, 5.68434189e-14],
+!       [6.08142164e+03, 1.64983850e+04, 5.68434189e-14],
+!       [5.68434189e-14, 5.68434189e-14, 6.49028044e+03]])
+    Dmat(1,1)=2.29650146e+04
+    Dmat(1,2)=6.08142164e+03
     Dmat(1,3)=0.
-    Dmat(2,1)=anu*you
-    Dmat(2,2)=you
+    Dmat(2,1)=6.08142164e+03
+    Dmat(2,2)=1.64983850e+04
     Dmat(2,3)=0.
     Dmat(3,1)=0.
     Dmat(3,2)=0.
-    Dmat(3,3)=0.5*(1.-anu)*you
+    Dmat(3,3)=6.49028044e+03
+
 10  format(a40)
     RETURN
 END
